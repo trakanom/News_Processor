@@ -21,3 +21,17 @@ def get_news(query):
 
     response = requests.get(url, params=params)
     return response.json()
+
+
+def get_everything(query):
+    url = "https://newsapi.org/v2/everything"
+    params = {
+        "apiKey": NEWS_API_KEY,
+        "q": query,
+        "sortBy": "publishedAt",
+        "pageSize": 100,
+        "page": 1,
+    }
+
+    response = requests.get(url, params=params)
+    return response.json()
