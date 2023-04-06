@@ -1,0 +1,32 @@
+<!-- app/templates/index.html -->
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Aggregator</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+
+<body>
+    <h1>News Aggregator</h1>
+    <form method="POST">
+        <input type="text" name="query" placeholder="Search news...">
+        <button type="submit">Search</button>
+    </form>
+
+    {% if articles %}
+    <div class="articles">
+        {% for article in articles %}
+        <div class="article">
+            <h2><a href="{{ article.url }}">{{ article.title }}</a></h2>
+            <p>{{ article.description }}</p>
+            <p>Published at: {{ article.publishedAt }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</body>
+
+</html>
