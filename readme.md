@@ -1,3 +1,4 @@
+```
 news_aggregator/
     ├── app/
     │   ├── __init__.py
@@ -13,3 +14,4 @@ news_aggregator/
     ├── readme.md
     ├── requirements.txt
     └── run.py
+```
