@@ -1,0 +1,10 @@
+[
+    {
+        "id": "cnn",
+        "name": "CNN"
+    },
+    {
+        "id": "bbc-news",
+        "name": "BBC News"
+    }
+]

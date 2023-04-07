@@ -1,33 +1,55 @@
-<!-- app/templates/index.html -->
-<!doctype html>
+<!--app/templates/index.html-->
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>News Aggregator</title>
-    <link rel="stylesheet" href="/static/css/styles.css">
+    <title>News Search</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
-    <h1>News Aggregator</h1>
-    <form method="POST">
-        <input type="text" name="query" placeholder="Search news...">
-        <button type="submit">Search</button>
-        <button type="submit" name="everything" value="1">Tell me everything about...</button>
-    </form>
-
-    {% if articles %}
-    <div class="articles">
-        {% for article in articles %}
-        <div class="article">
-            <h2><a href="{{ article.url }}">{{ article.title }}</a></h2>
-            <p>{{ article.description }}</p>
-            <p>Published at: {{ article.publishedAt }}</p>
-        </div>
-        {% endfor %}
+    <h1>News Search</h1>
+    <div class="form-container">
+        <form method="POST">
+            <input type="text" name="query" placeholder="Search news..." value="{{ form_data.get('query', '') }}">
+            <button type="submit">Search</button>
+            <br>
+            <input type="checkbox" id="advanced" name="advanced" {% if form_data.get('advanced') %}checked{% endif %}>
+            <label for="advanced">Advanced search</label>
+            <div id="advanced-options">
+                {% with advanced_checked=form_data.get('advanced'), form_data=form_data %}
+                {% include 'advanced_options.html' %}
+                {% endwith %}
+            </div>
+        </form>
+    </div>
+    {% if session['history'] %}
+    <h2>Results History:</h2>
+    <div id="results-history">
+        {% include 'history.html' %}
+    </div>
+    {% endif %}
+    {% if news_data %}
+    <div class="results-container">
+        <h2>Results ({{ total_results }}):</h2>
+        <form action="{{ url_for('download_results') }}" method="POST">
+            <input type="hidden" name="news_data" value="{{ news_data|tojson|safe }}">
+            <button type="submit">Download Results</button>
+        </form>
+        <ul class="results">
+            {% for article in news_data %}
+            <li>
+                <a href="{{ article.url }}">{{ article.title }}</a> - {{ article.source.name }}
+            </li>
+            {% endfor %}
+        </ul>
     </div>
     {% endif %}
 </body>
+
+<script src="{{ url_for('static', filename='main.js') }}"></script>
 
 </html>

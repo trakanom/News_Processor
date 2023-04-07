@@ -1,0 +1,42 @@
+<!-- app/templates/advanced_options.html -->
+<!-- {% if advanced_checked %} -->
+<br>
+<label for="sources">Sources (comma-separated):</label>
+<input type="text" name="sources" placeholder="Sources" value="{{ form_data.get('sources', '') }}">
+<!--Sources-->
+<div class="options-group">
+    <h3>Popular Sources</h3>
+    {% for source in popular_sources %}
+    <input type="checkbox" name="popular_sources" value="{{ source.id }}">
+    <label>{{ source.name }}</label><br>
+    {% endfor %}
+</div>
+
+
+<!-- Languages -->
+<div class="options-group">
+    <h3>Languages</h3>
+    {% for language in languages %}
+    <input type="checkbox" name="languages" value="{{ language.code }}">
+    <label>{{ language.name }}</label><br>
+    {% endfor %}
+</div>
+
+<!-- Categories -->
+<div class="options-group">
+    <h3>Categories</h3>
+    {% for category in categories %}
+    <input type="checkbox" name="categories" value="{{ category }}">
+    <label>{{ category }}</label><br>
+    {% endfor %}
+</div>
+
+<!-- Countries -->
+<div class="options-group">
+    <h3>Countries</h3>
+    {% for country in countries %}
+    <input type="checkbox" name="countries" value="{{ country.code }}">
+    <label>{{ country.name }}</label><br>
+    {% endfor %}
+</div>
+<!-- {% endif %} -->

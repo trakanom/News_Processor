@@ -1,0 +1,12 @@
+<!--app/tempates/history.html-->
+{% for past_results in session['history']|reverse %}
+<div class="history-entry">
+    <h4>{{ query }}</h4>
+    <button class="view-results" data-results="{{ past_results|tojson }}">View Results</button>
+    <form class="download-form" action="{{ url_for('download_results') }}" method="POST">
+        <input type="hidden" name="news_data" value="{{ past_results|tojson }}">
+        <button type="submit">Download Results</button>
+    </form>
+
+</div>
+{% endfor %}
